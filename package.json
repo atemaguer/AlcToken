@@ -1,0 +1,19 @@
+{
+  "devDependencies": {
+    "@truffle/hdwallet-provider": "^1.0.36",
+    "chai": "^4.2.0",
+    "dotenv": "^8.2.0",
+    "moch": "^0.0.1",
+    "truffle": "^5.1.32"
+  },
+  "scripts": {
+    "console": "./node_modules/.bin/truffle console",
+    "dev": "./node_modules/.bin/truffle migrate --network development",
+    "production": "./node_modules/.bin/truffle migrate --network alchemy"
+  },
+  "name": "alchemy-token",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Atem Aguer",
+  "license": "MIT"
+}

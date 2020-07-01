@@ -1,0 +1,8 @@
+//library files
+node_modules/
+
+//Environment variables
+.env
+
+//yarn files 
+yarn-error.*
