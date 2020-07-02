@@ -20,7 +20,7 @@ contract AlcToken {
     );
 
     modifier onlyValidAddress(address _account) {
-        require(_account != address(0), "Sender not authorized.");
+        require(_account == address(0), "Invalid address supplied.");
         _;
     }
 
@@ -55,6 +55,7 @@ contract AlcToken {
     {
         _balances[msg.sender] = _balances[msg.sender] - _value;
         _balances[_to] = _balances[_to] + _value;
+        emit Transfer(msg.sender, _to, _value);
         return true;
     }
 
@@ -68,16 +69,33 @@ contract AlcToken {
         onlyValidAddress(_to)
         hasSufficientFunds(_from, _value)
         returns (bool success)
-    {}
+    {
+        _balances[_from] = _balances[_from] - _value;
+        _balances[_to] = _balances[_to] + _value;
+        _allowed[_from][msg.sender] = _allowed[_from][msg.sender] - _value;
+        emit Transfer(_from, _to, _value);
+        return true;
+    }
 
     function approve(address _spender, uint256 _value)
         public
+        onlyOwner(msg.sender)
+        onlyValidAddress(_spender)
+        hasSufficientFunds(_spender, _value)
         returns (bool success)
-    {}
+    {
+        _allowed[msg.sender][_spender] = _value;
+        emit Approval(msg.sender, _spender, _value);
+        return true;
+    }
 
     function allowance(address _owner, address _spender)
         public
         view
+        onlyValidAddress(_owner)
+        onlyValidAddress(_spender)
         returns (uint256 remaining)
-    {}
+    {
+        return _allowed[_owner][_spender];
+    }
 }
