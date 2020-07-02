@@ -1,5 +1,6 @@
-//library files
+//library and build files
 node_modules/
+build/
 
 //Environment variables
 .env
